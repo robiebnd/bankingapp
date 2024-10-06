@@ -66,6 +66,13 @@ public class AccountController {
         return ResponseEntity.ok(accounts);
     }
 
+    public ResponseEntity<String> deleteAccount(Long id){
+
+        accountService.deleteAccount(id);
+
+        return ResponseEntity.ok("Account has been successfully deleted");
+    }
+
 }
 
 

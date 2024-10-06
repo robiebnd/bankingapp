@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import com.bankingapp.bank.model.Account;
+import com.bankingapp.bank.exceptions.AccountNotFoundException;
 import com.bankingapp.bank.exceptions.InsufficientFundsException;
 import com.bankingapp.bank.Repo.AccountRepository;
 import com.bankingapp.bank.dto.AccountDto;
@@ -80,6 +81,16 @@ public class AccountServiceImpl implements AccountService {
         // TODO Auto-generated method stub
        List<Account> accounts = accountRepository.findAll();
        return accounts.stream().map((account) ->AccountMapper.mapToAccountDto(account)).collect(Collectors.toList());
+    }
+
+
+    @Override
+    public void deleteAccount(Long id) {
+        // TODO Auto-generated method stub
+        Account account = accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException("Account does not exist"));
+        
+        accountRepository.deleteById(id);
+       
     }
 
     
